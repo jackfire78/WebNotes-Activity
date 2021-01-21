@@ -13,8 +13,11 @@ class NotesService{
     
     public function create(Note $note){
         //$this->logger->info("Entering NotesService.doSubmit()");
-                
-    	$db = new mysqli("localhost", "azure", "6#vWHD_$", "webnotes", "53217");
+         
+    	//Azure database
+    	//$db = new mysqli("localhost", "azure", "6#vWHD_$", "webnotes", "53217");
+    	//Heroko and local testing database
+    	$db = new mysqli("localhost", "root", "root", "webnotes");
     	
     	// Check connection
     	if ($db -> connect_errno) {
@@ -39,7 +42,10 @@ class NotesService{
     public function getNotes($USERNAME){
     	//$this->logger->info("Entering NotesService.getNotes()");
         
-    	$db = new mysqli("localhost", "azure", "6#vWHD_$", "webnotes", 53217);
+    	//Azure database
+    	//$db = new mysqli("localhost", "azure", "6#vWHD_$", "webnotes", "53217");
+    	//Heroko and local testing database
+    	$db = new mysqli("localhost", "root", "root", "webnotes");
     	
     	// Check connection
     	if ($db -> connect_errno) {
