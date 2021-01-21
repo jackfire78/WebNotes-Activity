@@ -30,7 +30,7 @@ class NotesDAO {
 				return "please connect to database";
 			}else{
 				//insert into db
-				$sql_statement = "INSERT INTO `notes` (`ID`, `USERNAME`, `CONTENT`) VALUES (NULL, '$user', '$content');";
+				$sql_statement = "INSERT INTO `ozgf8unmfu7uuiad`.`notes` (`ID`, `USERNAME`, `CONTENT`) VALUES (NULL, '$user', '$content');";
 				if (mysqli_query($this->db, $sql_statement)) {
 					//echo "New note created successfully";
 					return true;
