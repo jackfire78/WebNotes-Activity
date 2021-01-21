@@ -16,8 +16,10 @@ class NotesService{
          
     	//Azure database
     	//$db = new mysqli("localhost", "azure", "6#vWHD_$", "webnotes", "53217");
-    	//Heroko and local testing database
-    	$db = new mysqli("localhost", "root", "root", "webnotes");
+    	//Heroku database
+    	$db = new mysqli("z3iruaadbwo0iyfp.cbetxkdyhwsb.us-east-1.rds.amazonaws.com", "fahczpdegdfdk58l", "da4ukk3v4t1lddor", "ozgf8unmfu7uuiad");
+    	//local testing database
+    	//$db = new mysqli("localhost", "root", "root", "webnotes");
     	
     	// Check connection
     	if ($db -> connect_errno) {
