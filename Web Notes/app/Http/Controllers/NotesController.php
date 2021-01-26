@@ -24,7 +24,7 @@ class NotesController extends Controller {
 
 		// rendered failed or success view and pass $note to it
 		if ($status) {
-			return view ( 'NotesSuccess' )->with ( $note );
+			return view ( 'NotesSuccess' );
 		} else {
 			return view ( 'NotesFailure' );
 		}

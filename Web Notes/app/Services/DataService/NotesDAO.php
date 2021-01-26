@@ -18,8 +18,8 @@ class NotesDAO {
 		// $this->logger->info ( "Entering NotesDAO.createNote()" );
 		$user = $note->getUsername ();
 		$content = $note->getContent ();
-		echo "Username: " + $user;
-		echo "content: " + $content;
+		echo "Username: " . $user;
+		echo "content: " . $content;
 		
 		try {
 /*			$stmt = mysqli_prepare( $this->db, "INSERT INTO `notes` (`ID`, `USERNAME`, `CONTENT`) VALUES (NULL, '$user', '$content');" );
