@@ -34,7 +34,7 @@ class NotesDAO {
 			}else{
 				//insert into db
 				$sql_statement = "INSERT INTO `notes` (`ID`, `USERNAME`, `CONTENT`) VALUES (NULL, '$user', '$content');";
-				if ($this->db->query($sql_statement) === TRUE) {
+				if (mysqli_query($this->db, $sql_statement)) {
 					//echo "New note created successfully";
 					return true;
 				}else{
