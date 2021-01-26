@@ -18,6 +18,9 @@ class NotesDAO {
 		// $this->logger->info ( "Entering NotesDAO.createNote()" );
 		$user = $note->getUsername ();
 		$content = $note->getContent ();
+		System.out.println("Username: " + $user);
+		System.out.println("content: " + $content);
+		
 		try {
 /*			$stmt = mysqli_prepare( $this->db, "INSERT INTO `notes` (`ID`, `USERNAME`, `CONTENT`) VALUES (NULL, '$user', '$content');" );
 			mysqli_stmt_execute($stmt);
@@ -30,7 +33,7 @@ class NotesDAO {
 				return "please connect to database";
 			}else{
 				//insert into db
-				$sql_statement = "INSERT INTO `ozgf8unmfu7uuiad`.`notes` (`ID`, `USERNAME`, `CONTENT`) VALUES (NULL, '$user', '$content');";
+				$sql_statement = "INSERT INTO `notes` (`ID`, `USERNAME`, `CONTENT`) VALUES (NULL, '$user', '$content');";
 				if (mysqli_query($this->db, $sql_statement)) {
 					//echo "New note created successfully";
 					return true;
@@ -42,7 +45,7 @@ class NotesDAO {
 			// $this->logger->error ( "Exception: ", array (
 			// "message" => $e->getMessage ()) );
 			throw new DatabaseException ( "Database Exception: " . $e->getMessage (), 0, $e );
-		}
+		} 
 	}
 	
 	public function findByUsername($username) {
@@ -82,9 +85,9 @@ class NotesDAO {
 					if(isset($array))
 						//if something is in the array return it
 						return $array;
-						//return if empty
-						$empty=array();
-						return $empty;
+					//return if empty
+					$empty=array();
+					return $empty;
 				}
 		} catch ( PDOException $e ) {
 			// \App\Services\Utility\MyLogger1::error("Exception: ", array("message" => $e->getMessage()));
