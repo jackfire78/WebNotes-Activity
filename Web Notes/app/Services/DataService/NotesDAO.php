@@ -22,9 +22,9 @@ class NotesDAO {
 		echo "content: " . $content;
 		
 		try {
+			//Prepared SQL statment
 /*			$stmt = mysqli_prepare( $this->db, "INSERT INTO `notes` (`ID`, `USERNAME`, `CONTENT`) VALUES (NULL, '$user', '$content');" );
-			mysqli_stmt_execute($stmt);
-			
+			mysqli_stmt_execute($stmt);			
 			//get results
 			$result = $stmt->get_result(); */
 
@@ -34,7 +34,7 @@ class NotesDAO {
 			}else{
 				//insert into db
 				$sql_statement = "INSERT INTO `notes` (`ID`, `USERNAME`, `CONTENT`) VALUES (NULL, '$user', '$content');";
-				if (mysqli_query($this->db, $sql_statement)) {
+				if ($this->db->query($sql_statement) === TRUE) {
 					//echo "New note created successfully";
 					return true;
 				}else{
