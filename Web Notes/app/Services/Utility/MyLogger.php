@@ -15,7 +15,9 @@ class MyLogger implements ILoggerService {
 			//self::$logger->pushHandler($stream);
 			//self::$logger->pushHandler(new StreamHandler(__DIR__ . '/logs/myapp.log', Logger::DEBUG));
 			//Logging in Heroku
-			self::$logger->pushHandler(new StreamHandler('php://stdout', Logger::DEBUG));			
+			// self::$logger->pushHandler(new StreamHandler('php://stdout', Logger::DEBUG));
+			//Logging in Heroku with Loggly
+			self::$logger->pushHandler(new StreamHandler('e96850b8-fd08-4dc0-9929-e255ae16e887/tag/webnotesHeroku', Logger::DEBUG));
 		}
 		return self::$logger;
 	}
