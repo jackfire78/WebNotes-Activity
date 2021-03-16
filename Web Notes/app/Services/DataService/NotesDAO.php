@@ -6,6 +6,7 @@ use PDO;
 use PDOException;
 use App\Http\Models\Note;
 use App\Services\Utility\DatabaseException;
+use App\Services\Utility\MyLogger;
 
 class NotesDAO {
 	private $db;
@@ -15,19 +16,11 @@ class NotesDAO {
 	}
 	
 	public function createNote(Note $note) {
-		// $this->logger->info ( "Entering NotesDAO.createNote()" );
-		$user = $note->getUsername ();
-		$content = $note->getContent ();
-		echo "Username: " . $user;
-		echo "content: " . $content;
+		MyLogger::info('Entering createNote() in NotesDAO');
 		
+		$user = $note->getUsername ();
+		$content = $note->getContent ();		
 		try {
-			//Prepared SQL statment
-/*			$stmt = mysqli_prepare( $this->db, "INSERT INTO `notes` (`ID`, `USERNAME`, `CONTENT`) VALUES (NULL, '$user', '$content');" );
-			mysqli_stmt_execute($stmt);			
-			//get results
-			$result = $stmt->get_result(); */
-
 			//connect to database
 			if ($this->db->connect_error){
 				return "please connect to database";
@@ -35,40 +28,23 @@ class NotesDAO {
 				//insert into db
 				$sql_statement = "INSERT INTO `notes` (`USERNAME`, `CONTENT`) VALUES ('$user', '$content');";
 				if (mysqli_query($this->db, $sql_statement)) {
-					echo $sql_statement;
+					MyLogger::info('Exiting createNote() in NotesDAO with True');
 					return true;
 				}else{
+					MyLogger::info('Exiting createNote() in NotesDAO with False');
 					return false;
 				}
 			}
 		} catch ( PDOException $e ) {
-			// $this->logger->error ( "Exception: ", array (
-			// "message" => $e->getMessage ()) );
+			 MyLogger::error("Exception: ", array ("message" => $e->getMessage ()) );
 			throw new DatabaseException ( "Database Exception: " . $e->getMessage (), 0, $e );
 		} 
 	}
 	
 	public function findByUsername($username) {
-		// $this->logger->info ( "Entering NotesDAO.findByUsername()" );
+		MyLogger::info('Entering findByUsername() in NotesDAO');
+		
 		try {
-/*			$stmt = mysqli_prepare( $this->db, "SELECT * FROM `notes` WHERE `USERNAME` LIKE '%$username%'" );
-			mysqli_stmt_execute($stmt);
-			
-			$result = $stmt->get_result();
-			//check result
-			if ($result) {
-				// \App\Services\Utility\MyLogger1::info("Exit SecurityDAO.findAllUsers() with empty array");
-				return array ();
-			} else {
-				// \App\Services\Utility\MyLogger1::info("Exit SecurityDAO.findAllUsers() with array of all users");
-				$index = 0;
-				$notes = array ();
-				while ( $row = $result->fetch_assoc()) {
-					$note = new Note ( $row ['USERNAME'], $row ['CONTENT'] );
-					$notes [$index ++] = $note;
-				}
-				return $notes;
-			} */
 			$sql_statement =  "SELECT * FROM `notes` WHERE `USERNAME` LIKE '%$username%'";
 				$counter = 0;
 				$result = mysqli_query($this->db, $sql_statement);
@@ -82,15 +58,19 @@ class NotesDAO {
 						$array[$counter] = $note;
 						$counter++;
 					}
-					if(isset($array))
+					if(isset($array)){
+						MyLogger::info('Exiting findByUsername() in NotesDAO with Populated Array');						
 						//if something is in the array return it
 						return $array;
-					//return if empty
-					$empty=array();
-					return $empty;
+					}else{
+						MyLogger::info('Exiting findByUsername() in NotesDAO with Empty Array');
+						//return if empty
+						$empty=array();
+						return $empty;
+					}	
 				}
 		} catch ( PDOException $e ) {
-			// \App\Services\Utility\MyLogger1::error("Exception: ", array("message" => $e->getMessage()));
+			MyLogger::error("Exception: ", array("message" => $e->getMessage()));
 			throw new DatabaseException ( "Database Exception: " . $e->getMessage (), 0, $e );
 		}
 	}

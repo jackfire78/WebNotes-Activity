@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Models\Note;
 use App\Services\BusinessServices\NotesService;
 use App\Services\Utility\MyLogger;
+use Carbon\Carbon;
 
 class NotesController extends Controller {
 	public function addNote(Request $request) {
-		MyLogger::info ( 'Entering addNote() in Notes Controller' );
+		MyLogger::info("Entering addNote() in Notes Controller");
 
 		// get the posted Form Data
 		$username = $request->input ( 'username' );
@@ -24,12 +26,18 @@ class NotesController extends Controller {
 
 		// rendered failed or success view and pass $note to it
 		if ($status) {
-			return view ( 'NotesSuccess' );
+			MyLogger::info("Exiting addNote() with success");
+			
+			return view ('NotesSuccess');
 		} else {
+			MyLogger::info ("Exiting addNote() with failure");
+			
 			return view ( 'NotesFailure' );
 		}
 	}
 	public function searchNotes(Request $request) {
+		MyLogger::info("Entering searchNotes() in Notes Controller");
+		
 		// get the posted Form Data
 		$username = $request->input ( 'username' );
 
@@ -39,8 +47,10 @@ class NotesController extends Controller {
 
 		// rendered failed or success view
 		if ($notesArray) {
+			MyLogger::info ("Exiting searchNotes() with success");
 			return view ( 'showNotesSearch' )->with ( "note", $notesArray );
 		} else {
+			MyLogger::info ("Exiting searchNotes() with failure");
 			return view ( 'NotesSearchFailure' );
 		}
 	}
